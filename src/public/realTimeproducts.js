@@ -1,5 +1,5 @@
 const socket = io()
-socket.emit("message", "Comuncándose desde un webSocket")
+socket.emit("message", "Comunicándose desde un webSocket")
 
 socket.on("productAdded", (product) => {
     const newProductElement = document.createElement("div");
