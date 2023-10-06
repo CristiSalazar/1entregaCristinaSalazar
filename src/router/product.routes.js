@@ -1,9 +1,9 @@
 import {Router} from "express"
 import { productsModel } from "../models/products.model.js"
 
-const router = Router()
+const ProductRouter = Router()
 
-router.get("/", async (req, res) => {
+ProductRouter.get("/", async (req, res) => {
     try{
         let products = await productsModel.find()
         res.send({result: "success", payload: products})
@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
     }
 })
 
-router.post("/", async (req, res) => {
+ProductRouter.post("/", async (req, res) => {
     let{title, description, price, stock}= req.body
     if(!title||!description||!price||!stock){
         res.send({status:"error", error:"missing"})
@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
     res.send({result:"success", payload: result})
 })
 
-router.put("/:id_prod", async(req,res)=>{
+ProductRouter.put("/:id_prod", async(req,res)=>{
     let{id_prod} = req.params
     let productsToRepleace = req.body
     if (!productsToRepleace.description||!productsToRepleace.image||!productsToRepleace.price ||!productsToRepleace.stock){
@@ -31,10 +31,10 @@ router.put("/:id_prod", async(req,res)=>{
     res.send({result:"success",playload:result})
 })
 
-router.delete("/:id_prod", async(req,res)=>{
+ProductRouter.delete("/:id_prod", async(req,res)=>{
     let{id_prod} = req.params
     let result = await productsModel.deleteOne({_id:id_prod})
     res.send({result:"success",playload:result})
 })
 
-export default router
+export default ProductRouter

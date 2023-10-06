@@ -2,9 +2,9 @@ import {Router} from "express"
 import { cartsModel } from "../models/carts.models.js"
 
 
-const router = Router()
+const CartRouter = Router()
 
-router.get("/", async(req,res) => {
+CartRouter.get("/", async(req,res) => {
     try{
         let carts = await cartsModel.find()
         res.send({result: "succes", playload: carts})
@@ -14,7 +14,7 @@ router.get("/", async(req,res) => {
     }
 })
 
-router.post("/", async(req, res) => {
+CartRouter.post("/", async(req, res) => {
     let {title, description, price, stock} = req.body
     if (!title || !description || price || !stock){
         res.send({status: "error", error: "missing body params"})
@@ -23,7 +23,7 @@ router.post("/", async(req, res) => {
     res.send({result:"succes", playload:result})
 })
 
-router.put("/:id_cart", async(req,res)=>{
+CartRouter.put("/:id_cart", async(req,res)=>{
     let{id_cart} = req.params
     let cartsToRepleace = req.body
     if (!cartsToRepleace.title||!cartsToRepleace.description||!cartsToRepleace.price||!cartsToRepleace.stock){
@@ -33,10 +33,10 @@ router.put("/:id_cart", async(req,res)=>{
     res.send({result:"success",playload:result})
 })
 
-router.delete("/:id_cart", async(req,res)=>{
+CartRouter.delete("/:id_cart", async(req,res)=>{
     let{id_cart} = req.params
     let result = await cartsModel.deleteOne({_id:id_cart})
     res.send({result:"success",playload:result})
 })
 
-export default router
+export default CartRouter

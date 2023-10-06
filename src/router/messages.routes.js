@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { messagessModel } from "../models/messages.model.js";
 
-const router = Router
+const MessagesRouter = Router
 
-router.get("/", async(req,res) => {
+MessagesRouter.get("/", async(req,res) => {
     try{
         let mensajes = await messagessModel.find()
         res.send({result: "succes", playload: messages})
@@ -13,7 +13,7 @@ router.get("/", async(req,res) => {
     }
 })
 
-router.post("/", async(req, res) => {
+MessagesRouter.post("/", async(req, res) => {
     let {usuario, mensajes} = req.body
     if (!usuario || !mensajes){
         res.send({status: "error", error: "missing body params"})
@@ -22,7 +22,7 @@ router.post("/", async(req, res) => {
     res.send({result:"succes", playload:result})
 })
 
-router.put("/:id_msg", async(req,res)=>{
+MessagesRouter.put("/:id_msg", async(req,res)=>{
     let{id_msg} = req.params
     let messagesToRepleace = req.body
     if (!messagesToRepleace.usuario||!messagesToRepleace.mensajes){
@@ -32,10 +32,10 @@ router.put("/:id_msg", async(req,res)=>{
     res.send({result:"success",playload:result})
 })
 
-router.delete("/:id_msg", async(req,res)=>{
+MessagesRouter.delete("/:id_msg", async(req,res)=>{
     let{id_msg} = req.params
     let result = await messagessModel.deleteOne({_id:id_msg})
     res.send({result:"success",playload:result})
 })
 
-export default router
+export default MessagesRouter
