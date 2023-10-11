@@ -1,38 +1,35 @@
 import express from "express"
-import ProductRouter from "./router/product.routes.js"
-import CartRouter from "./router/carts.routes.js"
-import MessagesRouter from "./router/messages.routes.js"
+// import ProductRouter from "./router/product.routes.js"
+import cartsRouter from "./router/carts.router.js"
+import messagesRouter from "./router/messages.router.js"
 import {engine} from "express-handlebars"
-import ProductRouter from "./router/product.routes.js"
-import UploadRouter from "./router/upload.routes.js"
+// import ProductRouter from "./router/product.routes.js"
+// import UploadRouter from "./router/upload.routes.js"
 import * as path from "path"
 import __dirname from "./utils.js"
-import ProductManager from "./controllers/ProductManager.js"
-import { Server } from "socket.io"
-import viewsRouter from "./router/views.routes.js"
 import mongoose from "mongoose"
 
 
 const app = express()
 const PORT = 8080
-const httpServer = app.listen(PORT,()=> console.log("Escuchando en puerto 8080"))
+app.listen(PORT,()=>{console.log("Escuchando en puerto 8080")})
 
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-mongoose.connect("mongodb+srv://cristinasalazar125:mong123456789@cluster0.tomc32z.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://cristinasalazar125:m123456789@cluster0.tomc32z.mongodb.net/?retryWrites=true&w=majority")
 .then(()=>{
-    console.log("Conectado a database")
+    console.log("Conectado a la base de datos")
 })
 .catch(error => {
-    console.error("Error al conectarse a database" + error)
+    console.error("Error al conectarse a la base de datos" + error)
 })
 
-app.use("/api/carts", CartRouter)
-app.use("/api/msg", MessagesRouter)
-app.use("/api/prod", ProductRouter)
-app.use("/", UploadRouter)
+app.use("/api/carts", cartsRouter)
+app.use("/api/msg", messagesRouter)
+// app.use("/api/prod", ProductRouter)
+// app.use("/", UploadRouter)
 
 
 app.engine("handlebars", engine())
