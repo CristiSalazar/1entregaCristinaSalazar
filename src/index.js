@@ -1,9 +1,8 @@
 import express from "express"
-// import ProductRouter from "./router/product.routes.js"
+import productRouter from "./router/product.routes.js"
 import cartsRouter from "./router/carts.router.js"
 import messagesRouter from "./router/messages.router.js"
 import {engine} from "express-handlebars"
-// import ProductRouter from "./router/product.routes.js"
 // import UploadRouter from "./router/upload.routes.js"
 import * as path from "path"
 import __dirname from "./utils.js"
@@ -28,7 +27,7 @@ mongoose.connect("mongodb+srv://cristinasalazar125:m123456789@cluster0.tomc32z.m
 
 app.use("/api/carts", cartsRouter)
 app.use("/api/msg", messagesRouter)
-// app.use("/api/prod", ProductRouter)
+app.use("/api/prod", productRouter)
 // app.use("/", UploadRouter)
 
 
