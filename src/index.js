@@ -3,7 +3,7 @@ import productRouter from "./router/product.routes.js"
 import cartsRouter from "./router/carts.router.js"
 import messagesRouter from "./router/messages.router.js"
 import {engine} from "express-handlebars"
-// import UploadRouter from "./router/upload.routes.js"
+import uploadRouter from "./router/upload.routes.js"
 import * as path from "path"
 import __dirname from "./utils.js"
 import mongoose from "mongoose"
@@ -28,7 +28,7 @@ mongoose.connect("mongodb+srv://cristinasalazar125:m123456789@cluster0.tomc32z.m
 app.use("/api/carts", cartsRouter)
 app.use("/api/msg", messagesRouter)
 app.use("/api/prod", productRouter)
-// app.use("/", UploadRouter)
+app.use("/", uploadRouter)
 
 
 app.engine("handlebars", engine())
@@ -40,7 +40,7 @@ app.use("/", express.static(__dirname + "/public"))
 
 app.get("/chat", async(req,res)=> {
     res.render("chat", {
-        title: "Chat con Mongoose"
+        title: "Chat utilizando Mongoose"
     })
 })
 

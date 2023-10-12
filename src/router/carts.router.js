@@ -16,7 +16,7 @@ router.get("/", async(req,res) => {
 
 router.post("/", async(req, res) => {
     let {title, description, price, stock} = req.body
-    if (!title || !description || price || !stock){
+    if (!title || !description || !price || !stock){
         res.send({status: "error", error: "Faltan datos"})
     }
     let result = await cartModel.create({title, description, price, stock})

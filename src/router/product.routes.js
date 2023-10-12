@@ -13,27 +13,27 @@ router.get("/", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-    let{title, description, price, stock}= req.body
-    if(!title||!description||!price||!stock){
+    let{title, price}= req.body
+    if(!title||!price){
         res.send({status:"error", error:"missing"})
     }
-    let result = await productsModel.create({title, description,price,stock})
+    let result = await productsModel.create({title,price})
     res.send({result:"success", payload: result})
 })
 
-router.put("/:id_prod", async(req,res)=>{
-    let{id_prod} = req.params
+router.put("/:pid", async(req,res)=>{
+    let{pid} = req.params
     let productsToRepleace = req.body
-    if (!productsToRepleace.description||!productsToRepleace.image||!productsToRepleace.price ||!productsToRepleace.stock){
-        res.send({status: "error", error: "missing body params"})
+    if (!productsToRepleace.title||!productsToRepleace.price){
+        res.send({status: "error", error: "faltan datos"})
     }
-    let result = await productsModel.updateOne({_id: id_prod}, products)
+    let result = await productsModel.updateOne({_id: pid}, productsToRepleace)
     res.send({result:"success",playload:result})
 })
 
-router.delete("/:id_prod", async(req,res)=>{
-    let{id_prod} = req.params
-    let result = await productsModel.deleteOne({_id:id_prod})
+router.delete("/:pid", async(req,res)=>{
+    let{pid} = req.params
+    let result = await productsModel.deleteOne({_id:pid})
     res.send({result:"success",playload:result})
 })
 

@@ -15,7 +15,7 @@ router.get("/", async(req,res) => {
 
 router.post("/", async(req, res) => {
     let {user, message} = req.body
-    if (!usuario || !message){
+    if (!user || !message){
         res.send({status: "error", error: "Faltan datos"})
     }
     let result = await messagessModel.create({user,message})
@@ -28,7 +28,7 @@ router.put("/:mid", async(req,res)=>{
     if (!messagesToRepleace.user||!messagesToRepleace.message){
         res.send({status: "error", error: "Faltan datos"})
     }
-    let result = await messagessModel.updateOne({_id: mid}, message)
+    let result = await messagessModel.updateOne({_id: mid}, messagesToRepleace)
     res.send({result:"success",playload:result})
 })
 
